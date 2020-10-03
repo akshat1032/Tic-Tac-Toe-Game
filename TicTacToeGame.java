@@ -33,8 +33,8 @@ public class TicTacToeGame {
 	private int userLocationChoice(char gameBoard[], Scanner userInput) {
 		boolean loopCondition = true;
 		int indexChoice = 0;
-		while(loopCondition) {
-			
+		while (loopCondition) {
+
 			System.out.println("Enter your choice for index form 1 to 9");
 			indexChoice = userInput.nextInt();
 			try {
@@ -43,17 +43,28 @@ public class TicTacToeGame {
 				} else {
 					continue;
 				}
-			}catch(ArrayIndexOutOfBoundsException e) {
+			} catch (ArrayIndexOutOfBoundsException e) {
 				e.printStackTrace();
 			}
 		}
 		return indexChoice;
 	}
-	
-	//User move made
+
+	// User move made
 	private char[] userMoveMade(char gameBoard[], int indexChoice, char userChoice) {
 		gameBoard[indexChoice] = userChoice;
 		return gameBoard;
+	}
+	
+	//Toss done
+	private String tossFirstPlayer() {
+		int toss = (int)(Math.floor(Math.random() * 10) % 2);
+		if(toss == 1) {
+			return "User";
+		}
+		else {
+			return "Computer";
+		}
 	}
 
 	public static void main(String[] args) {
@@ -62,13 +73,16 @@ public class TicTacToeGame {
 		char ticTacToeBoard[] = new char[10];
 		TicTacToeGame gameObject = new TicTacToeGame();
 		ticTacToeBoard = gameObject.createBoard();
-
+		
 		Scanner userInput = new Scanner(System.in);
+		String firstPlayer = gameObject.tossFirstPlayer();
+		System.out.println("First Player : "+firstPlayer);
 		char userChoice = gameObject.chooseLetter(userInput);
 		char computerChoice = ((userChoice == 'X') ? 'O' : 'X');
 		gameObject.showBoard(ticTacToeBoard);
 		int indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
 		ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, userChoice);
 		gameObject.showBoard(ticTacToeBoard);
+	
 	}
 }
