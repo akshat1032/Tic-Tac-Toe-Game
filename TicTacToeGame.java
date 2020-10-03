@@ -30,15 +30,15 @@ public class TicTacToeGame {
 	}
 
 	// User location choice
-	private char[] userLocationChoice(char gameBoard[], char userChoice, Scanner userInput) {
+	private int userLocationChoice(char gameBoard[], Scanner userInput) {
 		boolean loopCondition = true;
+		int indexChoice = 0;
 		while(loopCondition) {
 			
 			System.out.println("Enter your choice for index form 1 to 9");
-			int indexChoice = userInput.nextInt();
+			indexChoice = userInput.nextInt();
 			try {
 				if (gameBoard[indexChoice] == ' ') {
-					gameBoard[indexChoice] = userChoice;
 					break;
 				} else {
 					continue;
@@ -47,7 +47,7 @@ public class TicTacToeGame {
 				e.printStackTrace();
 			}
 		}
-		return gameBoard;
+		return indexChoice;
 	}
 
 	public static void main(String[] args) {
@@ -61,6 +61,6 @@ public class TicTacToeGame {
 		char userChoice = gameObject.chooseLetter(userInput);
 		char computerChoice = ((userChoice == 'X') ? 'O' : 'X');
 		gameObject.showBoard(ticTacToeBoard);
-		ticTacToeBoard = gameObject.userLocationChoice(ticTacToeBoard, userChoice, userInput);
+		int indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
 	}
 }
