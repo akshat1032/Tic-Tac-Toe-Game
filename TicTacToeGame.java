@@ -49,6 +49,12 @@ public class TicTacToeGame {
 		}
 		return indexChoice;
 	}
+	
+	//User move made
+	private char[] userMoveMade(char gameBoard[], int indexChoice, char userChoice) {
+		gameBoard[indexChoice] = userChoice;
+		return gameBoard;
+	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe game");
@@ -62,5 +68,7 @@ public class TicTacToeGame {
 		char computerChoice = ((userChoice == 'X') ? 'O' : 'X');
 		gameObject.showBoard(ticTacToeBoard);
 		int indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
+		ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, userChoice);
+		gameObject.showBoard(ticTacToeBoard);
 	}
 }
