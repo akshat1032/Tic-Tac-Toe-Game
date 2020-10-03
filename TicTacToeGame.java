@@ -3,6 +3,9 @@ package com.tictactoegame;
 import java.util.Scanner;
 
 public class TicTacToeGame {
+	
+	private static final int HEAD_FOR_USER = 1;
+	private static final int TAIL_FOR_COMPUTER = 0;
 
 	// Create game board and assign empty space to each index
 	private char[] createBoard() {
@@ -57,15 +60,10 @@ public class TicTacToeGame {
 	}
 	
 	//Toss done
-	private String tossFirstPlayer() {
+	private int tossFirstPlayer() {
 		int toss = (int)(Math.floor(Math.random() * 10) % 2);
-		if(toss == 1) {
-			return "User";
+		return toss;
 		}
-		else {
-			return "Computer";
-		}
-	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe game");
@@ -75,10 +73,14 @@ public class TicTacToeGame {
 		ticTacToeBoard = gameObject.createBoard();
 		
 		Scanner userInput = new Scanner(System.in);
-		String firstPlayer = gameObject.tossFirstPlayer();
-		System.out.println("First Player : "+firstPlayer);
 		char userChoice = gameObject.chooseLetter(userInput);
 		char computerChoice = ((userChoice == 'X') ? 'O' : 'X');
+		int firstPlayer = gameObject.tossFirstPlayer();
+		if (firstPlayer == HEAD_FOR_USER) {
+			System.out.println("User will start");
+		} else {
+			System.out.println("Computer will start");
+		}
 		gameObject.showBoard(ticTacToeBoard);
 		int indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
 		ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, userChoice);
