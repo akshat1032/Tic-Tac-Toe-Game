@@ -15,7 +15,7 @@ public class TicTacToeGame {
 	
 	//Allow player to choose a letter X or O
 	private char chooseLetter(Scanner userInputLetter) {
-		System.out.println("Enter your choice");
+		System.out.println("Enter your choice either X or O");
 		char userChoice = userInputLetter.next().toUpperCase().charAt(0);
 		return userChoice;
 	}
@@ -30,9 +30,8 @@ public class TicTacToeGame {
 		
 		Scanner userInputLetter = new Scanner(System.in);
 		char userChoice = gameObject.chooseLetter(userInputLetter);
-		int computerInput = (int)Math.floor((Math.random() * 10) % 2);
 		char computerChoice;
-		if (computerInput == 0) {
+		if (userChoice == 'O') {
 			computerChoice = 'X';
 		} else {
 			computerChoice = 'O';
