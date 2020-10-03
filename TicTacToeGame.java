@@ -14,19 +14,40 @@ public class TicTacToeGame {
 	}
 
 	// Allow player to choose a letter X or O
-	private char chooseLetter(Scanner userInputLetter) {
+	private char chooseLetter(Scanner userInput) {
 		System.out.println("Enter your choice either X or O");
-		char userChoice = userInputLetter.next().toUpperCase().charAt(0);
+		char userChoice = userInput.next().toUpperCase().charAt(0);
 		return userChoice;
 	}
 
 	// Display the board
 	private void showBoard(char gameBoard[]) {
-		for(int indexBoard = 1; indexBoard<gameBoard.length; indexBoard++) {
-			System.out.print(gameBoard[indexBoard]+" |");
-			if(indexBoard % 3 == 0 )
+		for (int indexBoard = 1; indexBoard < gameBoard.length; indexBoard++) {
+			System.out.print(gameBoard[indexBoard] + " |");
+			if (indexBoard % 3 == 0)
 				System.out.println();
 		}
+	}
+
+	// User location choice
+	private char[] userLocationChoice(char gameBoard[], char userChoice, Scanner userInput) {
+		boolean loopCondition = true;
+		while(loopCondition) {
+			
+			System.out.println("Enter your choice for index form 1 to 9");
+			int indexChoice = userInput.nextInt();
+			try {
+				if (gameBoard[indexChoice] == ' ') {
+					gameBoard[indexChoice] = userChoice;
+					break;
+				} else {
+					continue;
+				}
+			}catch(ArrayIndexOutOfBoundsException e) {
+				e.printStackTrace();
+			}
+		}
+		return gameBoard;
 	}
 
 	public static void main(String[] args) {
@@ -36,9 +57,10 @@ public class TicTacToeGame {
 		TicTacToeGame gameObject = new TicTacToeGame();
 		ticTacToeBoard = gameObject.createBoard();
 
-		Scanner userInputLetter = new Scanner(System.in);
-		char userChoice = gameObject.chooseLetter(userInputLetter);
-		char computerChoice = ((userChoice == 'X')?'O':'X');
+		Scanner userInput = new Scanner(System.in);
+		char userChoice = gameObject.chooseLetter(userInput);
+		char computerChoice = ((userChoice == 'X') ? 'O' : 'X');
 		gameObject.showBoard(ticTacToeBoard);
+		ticTacToeBoard = gameObject.userLocationChoice(ticTacToeBoard, userChoice, userInput);
 	}
 }
