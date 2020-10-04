@@ -251,6 +251,7 @@ public class TicTacToeGame {
 			if (checkWinTieChange == 1) {
 				break;
 			} else {
+				System.out.println("The current game continues");
 				continue;
 			}
 		}
