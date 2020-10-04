@@ -117,24 +117,44 @@ public class TicTacToeGame {
 	private char canUserWin(Scanner userInput) {
 		char winOrNotWin = ' ';
 		String activePlayer = "";
-		if(playerOption == 1) {
+		if (playerOption == 1) {
 			activePlayer = "User";
-		}
-		else {
+		} else {
 			activePlayer = "Computer";
 		}
 		while (true) {
-			System.out.println(activePlayer+", can you win (Y/N)?");
+			System.out.println(activePlayer + ", can you win (Y/N)?");
 			winOrNotWin = userInput.next().toUpperCase().charAt(0);
 			if (winOrNotWin != 'Y' && winOrNotWin != 'N') {
 				System.out.println("You can only enter Y or N.");
 				continue;
-			}
-			else {
+			} else {
 				break;
 			}
 		}
 		return winOrNotWin;
+	}
+
+	// Check if opponent can win and block
+	private char canOpponentWin(Scanner userInput) {
+		char oppWinOrNotWin = ' ';
+		String activePlayer = "";
+		if (playerOption == 1) {
+			activePlayer = "User";
+		} else {
+			activePlayer = "Computer";
+		}
+		while (true) {
+			System.out.println(activePlayer + ", can your opponent win (Y/N)?");
+			oppWinOrNotWin = userInput.next().toUpperCase().charAt(0);
+			if (oppWinOrNotWin != 'Y' && oppWinOrNotWin != 'N') {
+				System.out.println("You can only enter Y or N.");
+				continue;
+			} else {
+				break;
+			}
+		}
+		return oppWinOrNotWin;
 	}
 
 	public static void main(String[] args) {
@@ -166,6 +186,11 @@ public class TicTacToeGame {
 			char winOrNotWin = gameObject.canUserWin(userInput);
 			if (winOrNotWin == 'Y') {
 				System.out.println("Enter the index to win");
+			} else {
+				char oppWinOrNotWin = gameObject.canOpponentWin(userInput);
+				if (oppWinOrNotWin == 'Y') {
+					System.out.println("Enter index to block opponent");
+				}
 			}
 			int indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
 			ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, choice);
