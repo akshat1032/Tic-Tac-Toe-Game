@@ -233,8 +233,16 @@ public class TicTacToeGame {
 								}
 							}
 						}else {
-							System.out.println("Corners are unavailable");
-							break;
+							System.out.println("Corners are unavailable.");
+							if (ticTacToeBoard[ticTacToeBoard.length/2] == ' ') {
+								ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, ticTacToeBoard.length/2, choice);
+							}
+							else {
+								System.out.println("Centre is also unavialable. Choose any available space.");
+								gameObject.showBoard(ticTacToeBoard);
+								indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
+								ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, choice);
+							}
 						}
 					}
 				}
