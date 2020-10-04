@@ -215,10 +215,10 @@ public class TicTacToeGame {
 					indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
 					ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, choice);
 				} else {
-					while(true) {
-					String cornerIndex = gameObject.defaultIndexChoiceCorner(ticTacToeBoard);
-					if (cornerIndex.contains("1") || cornerIndex.contains("3") || cornerIndex.contains("7")
-							|| cornerIndex.contains("9")) {
+					while (true) {
+						String cornerIndex = gameObject.defaultIndexChoiceCorner(ticTacToeBoard);
+						if (cornerIndex.contains("1") || cornerIndex.contains("3") || cornerIndex.contains("7")
+								|| cornerIndex.contains("9")) {
 							indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
 							if (indexChoice != 1 && indexChoice != 3 && indexChoice != 7 && indexChoice != 9) {
 								System.out.println("You can only enter : " + cornerIndex);
@@ -232,12 +232,12 @@ public class TicTacToeGame {
 									continue;
 								}
 							}
-						}else {
+						} else {
 							System.out.println("Corners are unavailable.");
-							if (ticTacToeBoard[ticTacToeBoard.length/2] == ' ') {
-								ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, ticTacToeBoard.length/2, choice);
-							}
-							else {
+							if (ticTacToeBoard[ticTacToeBoard.length / 2] == ' ') {
+								ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, ticTacToeBoard.length / 2,
+										choice);
+							} else {
 								System.out.println("Centre is also unavialable. Choose any available space.");
 								gameObject.showBoard(ticTacToeBoard);
 								indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
@@ -249,7 +249,22 @@ public class TicTacToeGame {
 			}
 			int checkWinTieChange = gameObject.checkWinTieChange(ticTacToeBoard, choice);
 			if (checkWinTieChange == 1) {
-				break;
+				char playAgain = ' ';
+				System.out.println("Do you want to play a new game (Y/N)?");
+				while (true) {
+					playAgain = userInput.next().toUpperCase().charAt(0);
+					if (playAgain != 'Y' && playAgain != 'N') {
+						System.out.println("Please select either Y for a new game or N to stop playing");
+						continue;
+					} else {
+						break;
+					}
+				}
+				if (playAgain == 'Y') {
+					continue;
+				} else {
+					break;
+				}
 			} else {
 				System.out.println("The current game continues");
 				continue;
