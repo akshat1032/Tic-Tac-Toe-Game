@@ -157,13 +157,33 @@ public class TicTacToeGame {
 		return oppWinOrNotWin;
 	}
 
+	// Index choice when nobody can win
+	private String defaultIndexChoiceCorner(char gameBoard[]) {
+		String availableCorners = "";
+		System.out.println("Available corners : ");
+		if (gameBoard[1] == ' ') {
+			availableCorners = availableCorners + 1 + ", ";
+		}
+		if (gameBoard[3] == ' ') {
+			availableCorners = availableCorners + 3 + ", ";
+		}
+		if (gameBoard[7] == ' ') {
+			availableCorners = availableCorners + 7 + ", ";
+		}
+		if (gameBoard[9] == ' ') {
+			availableCorners = availableCorners + 9;
+		}
+		System.out.println(availableCorners);
+		return availableCorners;
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe game");
 
 		char ticTacToeBoard[] = new char[10];
 		TicTacToeGame gameObject = new TicTacToeGame();
 		ticTacToeBoard = gameObject.createBoard();
-
+		int indexChoice = 0;
 		Scanner userInput = new Scanner(System.in);
 		char userChoice = gameObject.chooseLetter(userInput);
 		char computerChoice = ((userChoice == 'X') ? 'O' : 'X');
@@ -186,14 +206,39 @@ public class TicTacToeGame {
 			char winOrNotWin = gameObject.canUserWin(userInput);
 			if (winOrNotWin == 'Y') {
 				System.out.println("Enter the index to win");
+				indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
+				ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, choice);
 			} else {
 				char oppWinOrNotWin = gameObject.canOpponentWin(userInput);
 				if (oppWinOrNotWin == 'Y') {
 					System.out.println("Enter index to block opponent");
+					indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
+					ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, choice);
+				} else {
+					while(true) {
+					String cornerIndex = gameObject.defaultIndexChoiceCorner(ticTacToeBoard);
+					if (cornerIndex.contains("1") || cornerIndex.contains("3") || cornerIndex.contains("7")
+							|| cornerIndex.contains("9")) {
+							indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
+							if (indexChoice != 1 && indexChoice != 3 && indexChoice != 7 && indexChoice != 9) {
+								System.out.println("You can only enter : " + cornerIndex);
+								continue;
+							} else {
+								if (cornerIndex.contains(Integer.toString(indexChoice))) {
+									ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, choice);
+									break;
+								} else {
+									System.out.println("Re-enter index");
+									continue;
+								}
+							}
+						}else {
+							System.out.println("Corners are unavailable");
+							break;
+						}
+					}
 				}
 			}
-			int indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
-			ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, choice);
 			int checkWinTieChange = gameObject.checkWinTieChange(ticTacToeBoard, choice);
 			if (checkWinTieChange == 1) {
 				break;
