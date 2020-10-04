@@ -113,6 +113,30 @@ public class TicTacToeGame {
 		return optionWinTieChange;
 	}
 
+	// Check if user can win
+	private char canUserWin(Scanner userInput) {
+		char winOrNotWin = ' ';
+		String activePlayer = "";
+		if(playerOption == 1) {
+			activePlayer = "User";
+		}
+		else {
+			activePlayer = "Computer";
+		}
+		while (true) {
+			System.out.println(activePlayer+", can you win (Y/N)?");
+			winOrNotWin = userInput.next().toUpperCase().charAt(0);
+			if (winOrNotWin != 'Y' && winOrNotWin != 'N') {
+				System.out.println("You can only enter Y or N.");
+				continue;
+			}
+			else {
+				break;
+			}
+		}
+		return winOrNotWin;
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe game");
 
@@ -139,6 +163,10 @@ public class TicTacToeGame {
 				choice = computerChoice;
 			}
 			gameObject.showBoard(ticTacToeBoard);
+			char winOrNotWin = gameObject.canUserWin(userInput);
+			if (winOrNotWin == 'Y') {
+				System.out.println("Enter the index to win");
+			}
 			int indexChoice = gameObject.userLocationChoice(ticTacToeBoard, userInput);
 			ticTacToeBoard = gameObject.userMoveMade(ticTacToeBoard, indexChoice, choice);
 			int checkWinTieChange = gameObject.checkWinTieChange(ticTacToeBoard, choice);
